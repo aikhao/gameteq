@@ -50,14 +50,6 @@ public class Offers {
         for(WebElement e:elements){
             if(e.getText().equals(key)){
                 e.findElement(By.xpath("ancestor::tr/td[contains(@class, 'mat-column-actions')]//span[text()=' Delete ']")).click();
-                new WebDriverWait(driver, Duration.ofSeconds(Properties.timeoutWaitStep))
-                        .until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.cdk-overlay-container button")));
-
-
-                driver.findElement(By.cssSelector("div.cdk-overlay-container button")).click();
-
-                new WebDriverWait(driver, Duration.ofSeconds(Properties.timeoutWaitStep))
-                        .until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//tbody//tr//td[contains(@class, 'mat-column-key')]"),key));
                 break;
 
             }
@@ -70,5 +62,11 @@ public class Offers {
     }
 
     public static void approveDelete() {
+        new WebDriverWait(driver, Duration.ofSeconds(Properties.timeoutWaitStep))
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.cdk-overlay-container button")));
+
+
+        driver.findElement(By.cssSelector("div.cdk-overlay-container button")).click();
+
     }
 }
