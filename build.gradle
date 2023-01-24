@@ -3,17 +3,13 @@ plugins {
 }
 
 ext {
-    jacksonCoreVersion = '2.10.2'
     junitVersion = '5.8.1'
     lombokVersion = '1.18.10'
     slf4jVersion = '1.7.30'
-    restassuredVersion = '4.3.1'
-        jsonValidatorVersion = '4.1.2'
-        junitPlatformVersion = '1.8.2'
 
 }
 
-group 'com.testslotegrator'
+group 'com.gameteq'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -25,26 +21,16 @@ repositories {
 dependencies {
 
     implementation 'junit:junit:4.13.1'
-    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.4.0'
-
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.3.0'
 
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
-    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: '2.13.4'
-
-    compileOnly("com.fasterxml.jackson.core:jackson-databind:$jacksonCoreVersion")
-    compileOnly("io.rest-assured:rest-assured:$restassuredVersion")
     compileOnly("org.projectlombok:lombok:$lombokVersion")
 
     implementation('com.browserup:browserup-proxy-core:2.0.1')
-    implementation("io.rest-assured:rest-assured:$restassuredVersion")
-    implementation("org.slf4j:slf4j-api:$slf4jVersion")
-    implementation("io.rest-assured:json-schema-validator:$jsonValidatorVersion")
-    testImplementation("io.rest-assured:json-schema-validator:$jsonValidatorVersion")
     testRuntimeOnly("org.slf4j:slf4j-simple:$slf4jVersion")
 }
 

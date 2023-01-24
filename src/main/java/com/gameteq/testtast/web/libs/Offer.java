@@ -15,8 +15,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.gameteq.testtast.web.view.pages.OfferPage.buttonAddSegment;
+import static com.gameteq.testtast.web.view.pages.OfferPage.buttonSave;
 import static com.gameteq.testtast.web.view.pages.OfferPage.inputKey;
 import static com.gameteq.testtast.web.view.pages.OfferPage.inputName;
+import static com.gameteq.testtast.web.view.pages.OfferPage.popupSelectElements;
 import static com.gameteq.testtast.web.view.pages.OfferPage.selectCategory;
 import static com.gameteq.testtast.web.view.pages.OfferPage.selectGroup;
 import static com.gameteq.testtast.web.view.pages.OfferPage.selectNetworks;
@@ -36,43 +38,35 @@ public class Offer {
 
     public static void setKey(String key) {
         driver.findElement(inputKey).sendKeys(key);
-
     }
 
     public static void setCategory(String category) {
         new Select(driver.findElement(selectCategory)).selectByVisibleText(category);
-
     }
 
     public static void setNetworks(String[] networks) throws InterruptedException {
         driver.findElement(selectNetworks).click();
         new WebDriverWait(driver, Duration.ofSeconds(Properties.timeoutWaitStep))
-                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("span.mat-option-text")));
+                .until(ExpectedConditions.presenceOfElementLocated(popupSelectElements));
 
-        List<WebElement> options= driver.findElements(By.cssSelector("span.mat-option-text"));
+        List<WebElement> options= driver.findElements(popupSelectElements);
         for(WebElement e: options){
             if(Arrays.stream(networks).anyMatch(e.getText()::equals)) e.click();
         }
-        driver.findElement(By.cssSelector("body")).sendKeys(Keys.ESCAPE);
-        Thread.sleep(3000);
+        driver.findElement(By.cssSelector(Constants.ElementsTag.body)).sendKeys(Keys.ESCAPE);
     }
 
     public static void setGroup(String group) throws InterruptedException {
         driver.findElement(selectGroup).click();
-//        Thread.sleep(3000);
         new WebDriverWait(driver, Duration.ofSeconds(Properties.timeoutWaitStep))
-                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("span.mat-option-text")));
-//        Thread.sleep(3000);
-//        List<WebElement> options1= driver.findElements(By.cssSelector("span.mat-option-text"));
-//        for(WebElement e: options1){
-//            if(e.getText().equals(group)) {
-//                e.click();
-//            }
-//        }
-
-        driver.findElement(By.xpath("//span[contains(text(),'"+group+"')][@class='mat-option-text']")).click();
-//        driver.findElement(By.cssSelector("body")).sendKeys(Keys.ESCAPE);
-        Thread.sleep(1000);
+                .until(ExpectedConditions.elementToBeClickable(popupSelectElements));
+        List<WebElement> elements = driver.findElements(popupSelectElements);
+        for(WebElement e:elements){
+            if(e.getText().equals(group)){
+                e.click();
+                break;
+            }
+        }
     }
 
     public static void openPage() {
@@ -80,25 +74,20 @@ public class Offer {
     }
 
     public static void clickSaveButton() throws InterruptedException {
-        Thread.sleep(1000);
-        driver.findElement(By.xpath("//button/span[contains(text(),'Save')]")).click();
-        ////tbody//tr[last()]//td[comtains,(class(),"mat-column-key")]
+        driver.findElement(buttonSave).click();
     }
 
     public static void setSegment(String segment) {
         driver.findElement(selectSegment).click();
         new WebDriverWait(driver, Duration.ofSeconds(Properties.timeoutWaitStep))
-                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("span.mat-option-text")));
-
-//        List<WebElement> options= driver.findElements(By.cssSelector("span.mat-option-text"));
-//        for(WebElement e: options){
-//            if(e.getText().equals(segment)) {
-//                e.click();
-//                return;
-//            }
-//        }
-        driver.findElement(By.xpath("//span[contains(text(),'"+segment+"')][@class='mat-option-text']")).click();
-
+                .until(ExpectedConditions.presenceOfElementLocated(popupSelectElements));
+        List<WebElement> elements = driver.findElements(popupSelectElements);
+        for(WebElement e:elements){
+            if(e.getText().equals(segment)){
+                e.click();
+                break;
+            }
+        }
     }
 
     public static void clickAddSegmentButton() {

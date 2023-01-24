@@ -14,7 +14,6 @@ import java.time.Duration;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-
 public class FirstTest {
     public static WebDriver driver;
 
@@ -26,7 +25,6 @@ public class FirstTest {
             .group("NEW_GROUP")
             .segment("Newentity")
             .build();
-
 
     @Before
     public void beforeTest() {
@@ -52,8 +50,8 @@ public class FirstTest {
         Offer.clickAddSegmentButton();
         Offer.setSegment(newOffer.getSegment());
         Offer.clickSaveButton();
-        Offers.checkExistTableContent();
-        assertTrue(Offers.checkExistLastOfferWithKey(newOffer.getKey()));
+        Offers.waitTableContentToBeClickable();
+        assertTrue(Offers.checkExistOfferWithKey(newOffer.getKey()));
 
     }
 
@@ -62,11 +60,11 @@ public class FirstTest {
         Offers offers = new Offers(driver);
 
         Offers.openPage();
-        Offers.checkExistTableContent();
+        Offers.waitTableContentToBeClickable();
         assertTrue(Offers.checkExistOfferWithKey(newOffer.getKey()));
         Offers.clickDeleteButtonForOfferWithKey(newOffer.getKey());
         Offers.approveDelete();
-        Offers.checkExistTableContent();
+        Offers.waitTableContentToBeClickable();
         assertFalse(Offers.checkExistOfferWithKey(newOffer.getKey()));
 
     }
@@ -74,7 +72,6 @@ public class FirstTest {
 
     @After
     public void afterTest() throws InterruptedException {
-        Thread.sleep(1000);
         driver.quit();
     }
 }

@@ -3,8 +3,6 @@ package com.gameteq.testtast.web.entities;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 @Builder
 @Data
 public class Offer {
